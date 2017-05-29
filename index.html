@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Семинарска ТИ - Дарко Цебов 101790</title>
+</head>
+<link rel="stylesheet" type="text/css" href="./css/bulma.css">
+<body class="container content">
+<div id="app">
+	<h1 class="title">Huffman code</h1>
+	<h4 class="subtitle">coder and decoder - <i>Darko Cebov 101790</i></h4>
+	<hr>
+	<h3>
+		<b v-if="cekor === 0">Барање:</b><b v-else>Имплементација:</b>
+	</h3>
+	<hr>
+	<div v-if="cekor === 0">
+	<code>
+		Влезот е секвенца од 2048 симболи од множеството X = {x1...x8}, со веројатности на појавување p1...p8, кои се случајно избрани (компјутерски генерирани) од Гаусова променлива во интервалот [0,1], со средна вредност 0.5. Откако ќе се генерираат веројатностите, потребно е да се нормализираат така што p1+p2...p8 = 1 (бидејќи се работи за веројатности).
+	</code>
+	</div>
+	<div v-if="cekor === 1">
+		<h1 class="label is-large">Моментални веројатности: </h1>
+
+		<table class="table">
+			<thead>
+				<th>Симбол</th>
+				<th>Веројатност</th>
+			</thead>
+			<tfoot>
+				<th>
+					<a class="button is-primary" @click="generirajVerojatnosti()">
+						Генерирај нови
+					</a>
+				</th>
+				<th> = {{ sumaP }}</th>
+			</tfoot>
+			<tbody>
+				<tr v-for="s in simboli">
+					<th>{{ s }}</th>
+					<td>{{ verojatnosti[simboli.indexOf(s)] }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="field has-addons">
+			<p class="control is-expanded">
+				<input class="input" type="text" :value="fiksniVerojatnosti" disabled="">
+			</p>
+			<p class="control">
+				<a class="button" @click="fiksniVrednosti()">
+					Земи фиксни веројатности
+				</a>
+			</p>
+		</div>
+	</div>
+	<div v-if="cekor === 2">
+		<h1 class="label is-large">Влез:</h1>
+		<div class="field has-addons">
+			<p class="control is-expanded">
+				<textarea class="textarea" type="text" :value="vlez" disabled="" style="height: 350px"></textarea>
+			</p>
+			<p class="control">
+				<a class="button" @click="generirajVlez()">
+					Генерирај рандом влез
+				</a>
+			</p>
+		</div>
+		<p>Број на карактери: {{ vlez.length }}</p>
+	</div>
+	<div v-if="cekor === 3">
+		<h1 class="label is-large">Кодна табела:</h1>
+		<div class="columns is-multiline">
+			<div class="column is-3" v-for="red in kodTabSimboli">
+			<table class="table">
+				<thead>
+					<th>Симбол</th>
+					<th>Веројатност</th>
+					<th>Код</th>
+				</thead>
+				<tbody>
+					<tr v-for="simbol in kodTabSimboli[kodTabSimboli.indexOf(red)]">
+						<th>{{ simbol }}</th>
+						<td>{{ kodTabVerojatnosti[kodTabSimboli.indexOf(red)][kodTabSimboli[kodTabSimboli.indexOf(red)].indexOf(simbol)].toFixed(2) }}</td>
+						<td v-if="kodTabSimboli[kodTabSimboli.indexOf(red)].indexOf(simbol) === kodTabVerojatnosti[kodTabSimboli.indexOf(red)].length-2">0</td>
+						<td v-if="kodTabSimboli[kodTabSimboli.indexOf(red)].indexOf(simbol) === kodTabVerojatnosti[kodTabSimboli.indexOf(red)].length-1">1</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<hr>
+		<table class="table">
+			<thead>
+				<th>Симбол</th>
+				<th>Код</th>
+			</thead>
+			<tbody>
+				<tr v-for="s in simboli">
+					<th>{{ s }}</th>
+					<td>{{ kodovi[simboli.indexOf(s)] }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<p>Просечна кодна должина: <b>{{ kodnaDolzina.toFixed(5) }}</b></p>
+		<p>Ентропија: <b>{{ entropija.toFixed(5) }}</b> бити</p>
+		<p>Условот за оптималност на код <code>n < H + 1</code> е <b style="color: green;" v-if="kodnaDolzina<entropija+1">исполнет</b><b style="color: red;" v-else>неисполнет</b>.</p>
+	</div>
+	<div v-if="cekor === 4">
+		<h1 class="label is-large">Кодиран влез:</h1>
+		<div class="field has-addons">
+			<p class="control is-expanded">
+				<textarea class="textarea" type="text" :value="kodiranVlez" disabled="" style="height: 350px"></textarea>
+			</p>
+		</div>
+	</div>
+	<div v-if="cekor === 5">
+		<h1 class="label is-large">Декодиран излез:</h1>
+				<div class="field has-addons">
+			<p class="control is-expanded">
+				<textarea class="textarea" type="text" :value="dekodiranIzlez" disabled="" style="height: 350px"></textarea>
+			</p>
+		</div>
+	</div>
+	<div v-if="cekor === 6">
+		<h1 class="label is-large">Споредба:</h1>
+		<p>Влез:</p>
+		<div class="field has-addons">
+			<p class="control is-expanded">
+				<textarea class="textarea" type="text" :value="vlez" disabled="" style="height: 350px"></textarea>
+			</p>
+		</div>
+		<p>Декодиран излез:</p>
+		<div class="field has-addons">
+			<p class="control is-expanded">
+				<textarea class="textarea" type="text" :value="dekodiranIzlez" disabled="" style="height: 350px"></textarea>
+			</p>
+		</div>
+		<article class="message is-success" v-if="vlez === dekodiranIzlez">
+		  <div class="message-header">
+		    <p><strong>Декодирањето е успешно</strong>!</p>
+		  </div>
+		  <div class="message-body">
+			Излезот и влезот се совпаѓаат. Оригиналниот влез е {{ vlezBiti() }} бити, компресираниот влез е {{ kodiranVlez.length }} бити. Факторот на компресија е {{ (vlezBiti()/kodiranVlez.length*100).toFixed(4) }}%.
+		  </div>
+		</article>
+		<article class="message is-danger" v-else>
+		  <div class="message-header">
+		    <p><strong>Грешка</strong>!</p>
+		  </div>
+		  <div class="message-body">
+			Излезот е различен од влезот.
+		  </div>
+		</article>
+	</div>
+	<hr>
+<nav class="pagination is-centered">
+  <a class="pagination-previous" @click="nazad()" :disabled="cekor === 0">Претходен чекор</a>
+  <a class="pagination-next" @click="napred()" :disabled="sledenDisabled">Следен чекор</a>
+</nav>
+</div>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<script type="text/javascript" src="./js/numbers.min.js"></script>
+	<script type="text/javascript" src="./js/Chart.min.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+</body>
+</html>
