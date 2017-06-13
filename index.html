@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Семинарска ТИ - Дарко Цебов 101790</title>
+	<title>РЎРµРјРёРЅР°СЂСЃРєР° РўР - Р”Р°СЂРєРѕ Р¦РµР±РѕРІ 101790</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./css/bulma.css">
 <body class="container content">
@@ -10,26 +10,26 @@
 	<h4 class="subtitle">coder and decoder - <i>Darko Cebov 101790</i></h4>
 	<hr>
 	<h3>
-		<b v-if="cekor === 0">Барање:</b><b v-else>Имплементација:</b>
+		<b v-if="cekor === 0">Р‘Р°СЂР°СљРµ:</b><b v-else>РРјРїР»РµРјРµРЅС‚Р°С†РёСР°:</b>
 	</h3>
 	<hr>
 	<div v-if="cekor === 0">
 	<code>
-		Влезот е секвенца од 2048 симболи од множеството X = {x1...x8}, со веројатности на појавување p1...p8, кои се случајно избрани (компјутерски генерирани) од Гаусова променлива во интервалот [0,1], со средна вредност 0.5. Откако ќе се генерираат веројатностите, потребно е да се нормализираат така што p1+p2...p8 = 1 (бидејќи се работи за веројатности).
+		Р’Р»РµР·РѕС‚ Рµ СЃРµРєРІРµРЅС†Р° РѕРґ 2048 СЃРёРјР±РѕР»Рё РѕРґ РјРЅРѕР¶РµСЃС‚РІРѕС‚Рѕ X = {x1...x8}, СЃРѕ РІРµСЂРѕСР°С‚РЅРѕСЃС‚Рё РЅР° РїРѕСР°РІСѓРІР°СљРµ p1...p8, РєРѕРё СЃРµ СЃР»СѓС‡Р°СРЅРѕ РёР·Р±СЂР°РЅРё (РєРѕРјРїССѓС‚РµСЂСЃРєРё РіРµРЅРµСЂРёСЂР°РЅРё) РѕРґ Р“Р°СѓСЃРѕРІР° РїСЂРѕРјРµРЅР»РёРІР° РІРѕ РёРЅС‚РµСЂРІР°Р»РѕС‚ [0,1], СЃРѕ СЃСЂРµРґРЅР° РІСЂРµРґРЅРѕСЃС‚ 0.5. РћС‚РєР°РєРѕ СњРµ СЃРµ РіРµРЅРµСЂРёСЂР°Р°С‚ РІРµСЂРѕСР°С‚РЅРѕСЃС‚РёС‚Рµ, РїРѕС‚СЂРµР±РЅРѕ Рµ РґР° СЃРµ РЅРѕСЂРјР°Р»РёР·РёСЂР°Р°С‚ С‚Р°РєР° С€С‚Рѕ p1+p2...p8 = 1 (Р±РёРґРµССњРё СЃРµ СЂР°Р±РѕС‚Рё Р·Р° РІРµСЂРѕСР°С‚РЅРѕСЃС‚Рё).
 	</code>
 	</div>
 	<div v-if="cekor === 1">
-		<h1 class="label is-large">Моментални веројатности: </h1>
+		<h1 class="label is-large">РњРѕРјРµРЅС‚Р°Р»РЅРё РІРµСЂРѕСР°С‚РЅРѕСЃС‚Рё: </h1>
 
 		<table class="table">
 			<thead>
-				<th>Симбол</th>
-				<th>Веројатност</th>
+				<th>РЎРёРјР±РѕР»</th>
+				<th>Р’РµСЂРѕСР°С‚РЅРѕСЃС‚</th>
 			</thead>
 			<tfoot>
 				<th>
 					<a class="button is-primary" @click="generirajVerojatnosti()">
-						Генерирај нови
+						Р“РµРЅРµСЂРёСЂР°С РЅРѕРІРё
 					</a>
 				</th>
 				<th> = {{ sumaP }}</th>
@@ -47,34 +47,34 @@
 			</p>
 			<p class="control">
 				<a class="button" @click="fiksniVrednosti()">
-					Земи фиксни веројатности
+					Р—РµРјРё С„РёРєСЃРЅРё РІРµСЂРѕСР°С‚РЅРѕСЃС‚Рё
 				</a>
 			</p>
 		</div>
 	</div>
 	<div v-if="cekor === 2">
-		<h1 class="label is-large">Влез:</h1>
+		<h1 class="label is-large">Р’Р»РµР·:</h1>
 		<div class="field has-addons">
 			<p class="control is-expanded">
 				<textarea class="textarea" type="text" :value="vlez" disabled="" style="height: 350px"></textarea>
 			</p>
 			<p class="control">
 				<a class="button" @click="generirajVlez()">
-					Генерирај рандом влез
+					Р“РµРЅРµСЂРёСЂР°С СЂР°РЅРґРѕРј РІР»РµР·
 				</a>
 			</p>
 		</div>
-		<p>Број на карактери: {{ vlez.length }}</p>
+		<p>Р‘СЂРѕС РЅР° РєР°СЂР°РєС‚РµСЂРё: {{ vlez.length }}</p>
 	</div>
 	<div v-if="cekor === 3">
-		<h1 class="label is-large">Кодна табела:</h1>
+		<h1 class="label is-large">РљРѕРґРЅР° С‚Р°Р±РµР»Р°:</h1>
 		<div class="columns is-multiline">
 			<div class="column is-3" v-for="red in kodTabSimboli">
 			<table class="table">
 				<thead>
-					<th>Симбол</th>
-					<th>Веројатност</th>
-					<th>Код</th>
+					<th>РЎРёРјР±РѕР»</th>
+					<th>Р’РµСЂРѕСР°С‚РЅРѕСЃС‚</th>
+					<th>РљРѕРґ</th>
 				</thead>
 				<tbody>
 					<tr v-for="simbol in kodTabSimboli[kodTabSimboli.indexOf(red)]">
@@ -90,8 +90,8 @@
 		<hr>
 		<table class="table">
 			<thead>
-				<th>Симбол</th>
-				<th>Код</th>
+				<th>РЎРёРјР±РѕР»</th>
+				<th>РљРѕРґ</th>
 			</thead>
 			<tbody>
 				<tr v-for="s in simboli">
@@ -101,12 +101,12 @@
 			</tbody>
 		</table>
 		<hr>
-		<p>Просечна кодна должина: <b>{{ kodnaDolzina.toFixed(5) }}</b></p>
-		<p>Ентропија: <b>{{ entropija.toFixed(5) }}</b> бити</p>
-		<p>Условот за оптималност на код <code>n < H + 1</code> е <b style="color: green;" v-if="kodnaDolzina<entropija+1">исполнет</b><b style="color: red;" v-else>неисполнет</b>.</p>
+		<p>РџСЂРѕСЃРµС‡РЅР° РєРѕРґРЅР° РґРѕР»Р¶РёРЅР°: <b>{{ kodnaDolzina.toFixed(5) }}</b></p>
+		<p>Р•РЅС‚СЂРѕРїРёСР°: <b>{{ entropija.toFixed(5) }}</b> Р±РёС‚Рё</p>
+		<p>РЈСЃР»РѕРІРѕС‚ Р·Р° РѕРїС‚РёРјР°Р»РЅРѕСЃС‚ РЅР° РєРѕРґ <code>n < H + 1</code> Рµ <b style="color: green;" v-if="kodnaDolzina<entropija+1">РёСЃРїРѕР»РЅРµС‚</b><b style="color: red;" v-else>РЅРµРёСЃРїРѕР»РЅРµС‚</b>.</p>
 	</div>
 	<div v-if="cekor === 4">
-		<h1 class="label is-large">Кодиран влез:</h1>
+		<h1 class="label is-large">РљРѕРґРёСЂР°РЅ РІР»РµР·:</h1>
 		<div class="field has-addons">
 			<p class="control is-expanded">
 				<textarea class="textarea" type="text" :value="kodiranVlez" disabled="" style="height: 350px"></textarea>
@@ -114,7 +114,7 @@
 		</div>
 	</div>
 	<div v-if="cekor === 5">
-		<h1 class="label is-large">Декодиран излез:</h1>
+		<h1 class="label is-large">Р”РµРєРѕРґРёСЂР°РЅ РёР·Р»РµР·:</h1>
 				<div class="field has-addons">
 			<p class="control is-expanded">
 				<textarea class="textarea" type="text" :value="dekodiranIzlez" disabled="" style="height: 350px"></textarea>
@@ -122,14 +122,14 @@
 		</div>
 	</div>
 	<div v-if="cekor === 6">
-		<h1 class="label is-large">Споредба:</h1>
-		<p>Влез:</p>
+		<h1 class="label is-large">РЎРїРѕСЂРµРґР±Р°:</h1>
+		<p>Р’Р»РµР·:</p>
 		<div class="field has-addons">
 			<p class="control is-expanded">
 				<textarea class="textarea" type="text" :value="vlez" disabled="" style="height: 350px"></textarea>
 			</p>
 		</div>
-		<p>Декодиран излез:</p>
+		<p>Р”РµРєРѕРґРёСЂР°РЅ РёР·Р»РµР·:</p>
 		<div class="field has-addons">
 			<p class="control is-expanded">
 				<textarea class="textarea" type="text" :value="dekodiranIzlez" disabled="" style="height: 350px"></textarea>
@@ -137,25 +137,25 @@
 		</div>
 		<article class="message is-success" v-if="vlez === dekodiranIzlez">
 		  <div class="message-header">
-		    <p><strong>Декодирањето е успешно</strong>!</p>
+		    <p><strong>Р”РµРєРѕРґРёСЂР°СљРµС‚Рѕ Рµ СѓСЃРїРµС€РЅРѕ</strong>!</p>
 		  </div>
 		  <div class="message-body">
-			Излезот и влезот се совпаѓаат. Оригиналниот влез е {{ vlezBiti() }} бити, компресираниот влез е {{ kodiranVlez.length }} бити. Факторот на компресија е {{ (vlezBiti()/kodiranVlez.length*100).toFixed(4) }}%.
+			РР·Р»РµР·РѕС‚ Рё РІР»РµР·РѕС‚ СЃРµ СЃРѕРІРїР°С“Р°Р°С‚. РћСЂРёРіРёРЅР°Р»РЅРёРѕС‚ РІР»РµР· Рµ {{ vlezBiti() }} Р±РёС‚Рё, РєРѕРјРїСЂРµСЃРёСЂР°РЅРёРѕС‚ РІР»РµР· Рµ {{ kodiranVlez.length }} Р±РёС‚Рё. Р¤Р°РєС‚РѕСЂРѕС‚ РЅР° РєРѕРјРїСЂРµСЃРёСР° Рµ {{ (vlezBiti()/kodiranVlez.length*100).toFixed(4) }}%.
 		  </div>
 		</article>
 		<article class="message is-danger" v-else>
 		  <div class="message-header">
-		    <p><strong>Грешка</strong>!</p>
+		    <p><strong>Р“СЂРµС€РєР°</strong>!</p>
 		  </div>
 		  <div class="message-body">
-			Излезот е различен од влезот.
+			РР·Р»РµР·РѕС‚ Рµ СЂР°Р·Р»РёС‡РµРЅ РѕРґ РІР»РµР·РѕС‚.
 		  </div>
 		</article>
 	</div>
 	<hr>
 <nav class="pagination is-centered">
-  <a class="pagination-previous" @click="nazad()" :disabled="cekor === 0">Претходен чекор</a>
-  <a class="pagination-next" @click="napred()" :disabled="sledenDisabled">Следен чекор</a>
+  <a class="pagination-previous" @click="nazad()" :disabled="cekor === 0">РџСЂРµС‚С…РѕРґРµРЅ С‡РµРєРѕСЂ</a>
+  <a class="pagination-next" @click="napred()" :disabled="sledenDisabled">РЎР»РµРґРµРЅ С‡РµРєРѕСЂ</a>
 </nav>
 </div>
 	<script type="text/javascript" src="./js/vue.js"></script>
